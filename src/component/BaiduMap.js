@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {MapView, MapTypes, Geolocation} from 'react-native-baidu-map';
 import {StyleSheet, View,} from 'react-native';
-import {observer} from "mobx-react";
 
-@observer
 export default class BaiduMap extends Component {
 
     constructor() {
@@ -20,13 +18,12 @@ export default class BaiduMap extends Component {
     componentDidMount() { // 获取位置
         Geolocation.getCurrentPosition().then(
             (data) => {
-                // this.props.changeStatus('ok');
                 this.setState({
                     zoom: 15,
                     markers: [{
-                        latitude: data.latitude,
+                        latitude:data.latitude,
                         longitude: data.longitude,
-                        title: '我的位置'
+                        title: "I'm Here"
                     }],
                     center: {
                         latitude: data.latitude,
@@ -34,11 +31,13 @@ export default class BaiduMap extends Component {
                     }
                 });
 
-                if (this.props.passEvent >= 0) {
-                    this.props.changeAddress(data.address, data.latitude, data.longitude, this.props.passEvent);
-                } else {
-                    this.props.changeAddress(data.address, data.latitude, data.longitude);
-                }
+                let address = data.province + data.city + data.street + data.buildingName+"---"+data.latitude+"---"+data.longitude;
+                this.props.store.setLocation(address);
+                // if (this.props.passEvent >= 0) {
+                //     this.props.changeAddress(data.address, data.latitude, data.longitude, this.props.passEvent);
+                // } else {
+                //     this.props.changeAddress(data.address, data.latitude, data.longitude);
+                // }
             }
         ).catch(error => {
 
@@ -79,7 +78,7 @@ const styles = StyleSheet.create(
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            backgroundColor: '#F5FCFF',
+            backgroundColor: '#ffffff',
         },
         map: {
             flex: 1,

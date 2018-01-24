@@ -12,6 +12,8 @@
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-baidu-map": "^0.6.0",
+    "react-native-image-picker": "^0.26.7",
+    "react-native-signature-capture": "^0.4.9",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.0-beta.23"
   },
